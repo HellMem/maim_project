@@ -1,4 +1,4 @@
-"id","genero","admision.letras","admision.numeros","promedio.preparatoria","edad.ingreso","evalucion.socioeconomica","nota.conducta"
+"id","genero","admision_letras","admision_numeros","promedio_preparatoria","edad_ingreso","evalucion_socioeconomica","nota_conducta"
 "1",2,60.0937308547091,35.1874617094183,70.2811925641274,18,4,16
 "2",2,59.0787372896547,33.1574745793094,67.236211868964,17,4,15
 "3",2,53.1433472503874,21.2866945007749,60,15,4,13
