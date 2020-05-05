@@ -4,6 +4,29 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from student_data_reader import *
 
+def plot_elbow(data):
+    sse = {}
+    for k in range(1, 10):
+        kmeans = KMeans(n_clusters=k, max_iter=1000).fit(data)
+        data["clusters"] = kmeans.labels_
+        sse[k] = kmeans.inertia_ # Inertia: Sum of distances of samples to their closest cluster center
+    plt.figure()
+    plt.plot(list(sse.keys()), list(sse.values()))
+    plt.xlabel("Number of cluster")
+    plt.ylabel("SSE")
+    plt.show()
+
+
+
+def get_kmeans_model(data, clusters):
+    kmeans = KMeans(n_clusters=clusters, random_state=0).fit(data)
+    labels = kmeans.labels_
+    centers = kmeans.cluster_centers_
+    print(labels)
+    print(centers)
+
+    return kmeans
+
 
 def get_nn_model(data, labels, layer_size):
     clf = MLPClassifier(solver='adam', alpha=0.001, hidden_layer_sizes=layer_size, random_state=1)
@@ -11,10 +34,10 @@ def get_nn_model(data, labels, layer_size):
 
 
 if __name__ == "__main__":
-    perfiles = load_perfil()
-    labels = get_kmeans_labels(perfiles, 2)
+    perfiles = load_perfil(500)
+    model = get_kmeans_model(perfiles, 2)
 
-    X_train, X_test, y_train, y_test = train_test_split(perfiles.values, labels, test_size=0.20, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(perfiles.values, model.labels_, test_size=0.20, random_state=42)
     scaler = StandardScaler()
     scaler.fit(X_train)
     X_train = scaler.transform(X_train)
