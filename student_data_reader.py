@@ -1,31 +1,5 @@
 import pandas as pd
-from sklearn.cluster import KMeans
-import numpy as np
-import matplotlib.pyplot as plt
 
-
-def plot_elbow(data):
-    sse = {}
-    for k in range(1, 10):
-        kmeans = KMeans(n_clusters=k, max_iter=1000).fit(data)
-        data["clusters"] = kmeans.labels_
-        sse[k] = kmeans.inertia_ # Inertia: Sum of distances of samples to their closest cluster center
-    plt.figure()
-    plt.plot(list(sse.keys()), list(sse.values()))
-    plt.xlabel("Number of cluster")
-    plt.ylabel("SSE")
-    plt.show()
-
-
-
-def get_kmeans_model(data, clusters):
-    kmeans = KMeans(n_clusters=clusters, random_state=0).fit(data)
-    labels = kmeans.labels_
-    centers = kmeans.cluster_centers_
-    print(labels)
-    print(centers)
-
-    return kmeans
 
 
 def load_materias():
