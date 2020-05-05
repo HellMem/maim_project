@@ -56,21 +56,12 @@ def load_materias():
             print('-' * 500)
 
 
-def load_perfil():
+
+def load_perfil(number_of_students):
     perfiles = pd.read_csv("data/perfil_alumnos.csv")
     cambio_carrera = pd.read_csv("data/cambio_carrera.csv")
     distribucion_becas = pd.read_csv("data/distribucion_becas.csv")
     perfiles['cambio_carrera'] = cambio_carrera['x']
     perfiles['distribucion_becas'] = distribucion_becas['x']
 
-    return perfiles
-
-
-#perfiles = load_perfil()
-load_materias()
-
-# print(perfiles)
-
-
-#plot_elbow(perfiles)
-
+    return perfiles[:number_of_students]
