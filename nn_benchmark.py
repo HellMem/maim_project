@@ -2,20 +2,40 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import classification_report
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+import matplotlib.pyplot as plt
 from student_data_reader import *
+from math import inf
 
-def plot_elbow(data):
+def get_elbow(data, plot=True):
     sse = {}
+    best_slope = 0
+    last_error = 0
+    best_n = 1
     for k in range(1, 10):
         kmeans = KMeans(n_clusters=k, max_iter=1000).fit(data)
-        data["clusters"] = kmeans.labels_
-        sse[k] = kmeans.inertia_ # Inertia: Sum of distances of samples to their closest cluster center
-    plt.figure()
-    plt.plot(list(sse.keys()), list(sse.values()))
-    plt.xlabel("Number of cluster")
-    plt.ylabel("SSE")
-    plt.show()
 
+        if k == 1:
+            last_error = kmeans.inertia_
+            data["cluster"] = kmeans.labels_
+            best_n = k
+
+        if best_slope <= last_error - kmeans.inertia_:
+            best_slope = last_error - kmeans.inertia_
+            best_n = k
+            data["cluster"] = kmeans.labels_
+
+        last_error = kmeans.inertia_
+        sse[k] = kmeans.inertia_ # Inertia: Sum of distances of samples to their closest cluster center
+
+    if plot:
+        plt.figure()
+        plt.plot(list(sse.keys()), list(sse.values()))
+        plt.xlabel("Number of cluster")
+        plt.ylabel("SSE")
+        plt.show()
+
+    return best_n
 
 
 def get_kmeans_model(data, clusters):
