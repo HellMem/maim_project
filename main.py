@@ -38,9 +38,17 @@ plt.figure(figsize=(12,10))
 cor = perfiles.corr()
 sns.heatmap(cor, annot=True, cmap=plt.cm.Reds)
 plt.show()
+#Correlation with assistance
+# correlated features with "asistencia"are not efective for the model accuracy
+# cor_target = abs(cor["asistencia"])
+cor_target = abs(cor["nota_conducta"])
+#Selecting highly correlated features
+relevant_features = list(cor_target[cor_target>0.5].index.values)
+# perfiles_dataset = perfiles[relevant_features]
+perfiles_dataset = perfiles
 
 # Split dataset in train and test sets
-X_train, X_test = train_test_split(perfiles, test_size=0.1, random_state=12345)
+X_train, X_test = train_test_split(perfiles_dataset, test_size=0.1, random_state=12345)
 
 # Get best n of clusters using kmeans and add its cluster for each student
 best_n = get_elbow(X_train, plot=False)
@@ -51,12 +59,17 @@ X_train.drop(columns='cluster', inplace=True)
 
 # Train NN classification model
 nn_model = get_nn_model(X_train, y_train, (5, 2))
+pred_train_y = nn_model.predict(X_train)
+print("Train report")
+print(classification_report(y_train, pred_train_y))
 
 # Predict class for test set using trained NN model
 pred_test_y = nn_model.predict(X_test)
 
-# TODO: Separate students with churn risk, which is which?
-X_test[pred_test_y==1]
+
+# Separate students with churn risk, cluster 1 means that the student is in risk
+# due to low highschool grades, grade and use of resources
+students_in_risk = X_test[pred_test_y==1]
 
 # TODO: genetic algorithm is R?
 

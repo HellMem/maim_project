@@ -9,7 +9,7 @@ def load_materias(perfiles, number_of_students):
     # lista_trabajos_por_alumno = []
     lista_calificacion_por_alumno = []
 
-    for i in range(1, number_of_students):
+    for i in range(1, number_of_students+1):
         path_asistencias = "data/asistencias/asistencias_{}.csv".format(i)
         path_examenes = "data/examenes/resultados_examenes_{}.csv".format(i)
         path_trabajos = "data/trabajos/resultados_trabajos_totales_{}.csv".format(i)
