@@ -20,6 +20,7 @@ def get_elbow(data, plot=True):
             data["cluster"] = kmeans.labels_
             best_n = k
 
+        # Get biggest slope
         if best_slope <= last_error - kmeans.inertia_:
             best_slope = last_error - kmeans.inertia_
             best_n = k
