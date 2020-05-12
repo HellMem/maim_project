@@ -14,7 +14,7 @@ apoyo.estudiantil <- data.frame(
 
 students <- read.csv("risk.csv")
 
-budget <- 10000
+budget <- 227
 
 
 
@@ -29,7 +29,7 @@ fitness.generic <- function(x){
 }
 
 
-candidate.1 <- c(1,0,0,0,0,0,0,0,0,1)
+candidate.1 <- c(1,0,0,0,0,0,0,0,0,1, 1)
 fitness.generic(candidate.1)
 
 
