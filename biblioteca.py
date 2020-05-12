@@ -10,7 +10,7 @@ def load_biblioteca(perfiles, num_of_students):
         uso_biblioteca = pd.read_csv(path_biblioteca)
         # Se redondean los datos, se elimina la columna de index (primera columna) y se suman todos los elementos de la matriz
         sum_uso_biblio = uso_biblioteca.round(0).to_numpy()[:,1:].sum()
-        lista_biblioteca.append(int(sum_uso_biblio))
+        lista_biblioteca.append((sum_uso_biblio)/sum_uso_biblio.size)
 
     df = pd.Series(lista_biblioteca)
     perfiles['uso_biblioteca'] = df
