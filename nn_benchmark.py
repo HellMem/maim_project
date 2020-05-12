@@ -4,8 +4,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 import matplotlib.pyplot as plt
-from student_data_reader import *
-from math import inf
+
 
 def get_elbow(data, plot=True):
     sse = {}
@@ -55,6 +54,8 @@ def get_nn_model(data, labels, layer_size):
 
 
 if __name__ == "__main__":
+    from student_data_reader import *
+
     perfiles = load_perfil(500)
     model = get_kmeans_model(perfiles, 2)
 
