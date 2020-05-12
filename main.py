@@ -40,7 +40,7 @@ perfiles_dataset = perfiles
 X_train, X_test = train_test_split(perfiles_dataset, test_size=0.1, random_state=12345)
 
 # Get best n of clusters using kmeans and add its cluster for each student
-best_n = get_elbow(X_train, plot=False)
+best_n = get_elbow(X_train, plot=True)
 
 # Separate X and Y from trainset
 y_train = X_train['cluster']
@@ -62,6 +62,4 @@ pred_test_y = nn_model.predict(X_test)
 # due to low highschool grades, grade and use of resources
 students_in_risk = X_test[pred_test_y == 1]
 
-# TODO: genetic algorithm is R?
-
-print()
+students_in_risk.to_csv("output/risk.csv")
