@@ -1,3 +1,7 @@
+#install.packages("genalg")
+library(genalg)
+
+
 getwd()
 
 setwd("C:/Users/memo_/Documents/Proyectos/Python/maim_project/output")
